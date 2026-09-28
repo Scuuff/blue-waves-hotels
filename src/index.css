@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+/* Dark mode is driven by the `dark` class on <html> (ThemeContext), not the
+   OS preference. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Brand typography: refined serif display + clean geometric body. */
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
+
+  /* Champagne-gold accent used across the luxury search experience. */
+  --color-gold-200: #efdfc0;
+  --color-gold-300: #e3c990;
+  --color-gold-400: #d4b078;
+  --color-gold-500: #c8a15f;
+  --color-gold-600: #a98443;
+}
+
+/* Compatibility with the Tailwind v3 CDN the site was written against:
+   v4 defaults borders/placeholders to currentColor, v3 used gray tones. */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--color-gray-400);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Reviews marquee — two seamless, opposite-direction infinite rows.
+   The track renders its cards twice and shifts by exactly -50% so the loop
+   restarts with no visible jump. Transform-only animation keeps it on the GPU.
+--------------------------------------------------------------------------- */
+@keyframes reviews-marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes reviews-marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.reviews-marquee {
+  display: flex;
+  width: max-content;
+  align-items: stretch;
+  animation-duration: var(--marquee-duration, 55s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+
+.reviews-marquee--left {
+  animation-name: reviews-marquee-left;
+}
+
+.reviews-marquee--right {
+  animation-name: reviews-marquee-right;
+}
+
+/* Pause both rows while the guest hovers the section. */
+.reviews-marquee-group:hover .reviews-marquee {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reviews-marquee {
+    animation: none;
+  }
+}
