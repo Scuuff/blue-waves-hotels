@@ -1,18 +1,29 @@
 # Blue Waves Hotels
 
-A full-stack hotel booking and management platform for a chain of four hotels
-across Egypt: **Cairo, Marsa Alam, Sharm El Sheikh and Ain Sokhna**.
+A full-stack hotel booking and management platform for a chain of five hotels
+across Egypt: **Cairo, Alexandria, Marsa Alam, Sharm El Sheikh and Ain Sokhna**.
 
 Guests can browse branches, search and filter hotels, book and pay, save
 favourites and leave reviews. Admins get a dashboard to run the whole chain:
 hotels, rooms, bookings, offers and users.
+
+### 🔗 Live demo: **[scuuff.github.io/blue-waves-hotels](https://scuuff.github.io/blue-waves-hotels/)**
+
+The live demo runs entirely in your browser: a built-in copy of the API
+answers every request and saves data locally, so you can register, book,
+pay and use the admin panel with no server. Try these accounts:
+
+| Role  | Email                  | Password   |
+| ----- | ---------------------- | ---------- |
+| Guest | `guest@bluewaves.demo` | `guest123` |
+| Admin | `admin@bluewaves.demo` | `admin123` |
 
 ---
 
 ## Features
 
 ### For guests
-- **Cinematic intro.** A loading screen and a scroll-driven journey through the four branches, then a video hero.
+- **Cinematic intro.** A loading screen and a scroll-driven journey through the branches, then a video hero.
 - **Search & filters.** Find hotels by branch, city, price and rating.
 - **Branch pages** with galleries, room types, amenities and an interactive map (Leaflet).
 - **Booking & checkout.** Pay by card, Apple Pay, Google Pay or PayPal.
@@ -97,6 +108,16 @@ npm run api     # API on http://localhost:5050
 ```bash
 npm run dev     # App on http://localhost:5173
 ```
+
+### Demo mode (no backend)
+
+```bash
+npm run dev:demo      # run the in-browser demo locally
+npm run build:demo    # build the GitHub Pages version into dist/
+```
+
+The demo API lives in `src/demo/`. It mirrors the Express routes and stores
+data in `localStorage`.
 
 ---
 

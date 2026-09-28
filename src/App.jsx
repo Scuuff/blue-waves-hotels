@@ -51,7 +51,7 @@ function App() {
       <UserProvider>
         <FavoritesProvider>
           <OffersProvider>
-            <BrowserRouter>
+            <BrowserRouter basename={import.meta.env.BASE_URL}>
               <ScrollToTop />
               <ChatBotWidget />
               <Routes>

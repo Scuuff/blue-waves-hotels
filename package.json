@@ -7,6 +7,8 @@
     "dev": "vite",
     "api": "node backend/server.js",
     "build": "vite build",
+    "dev:demo": "vite --mode demo",
+    "build:demo": "vite build --mode demo",
     "lint": "eslint .",
     "preview": "vite preview"
   },

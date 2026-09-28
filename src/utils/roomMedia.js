@@ -1,8 +1,11 @@
+// Public-folder images, prefixed with the deploy base (e.g. /blue-waves-hotels/ on GitHub Pages).
+const IMAGES = `${import.meta.env.BASE_URL}Images/`;
+
 const ROOM_TYPE_FALLBACK_IMAGES = {
-  Standard: "/Images/Standard.jpg",
-  Deluxe: "/Images/Deluxe.jpg",
-  Suite: "/Images/Suite.jpg",
-  Penthouse: "/Images/Penthouse1.jpg",
+  Standard: `${IMAGES}Standard.jpg`,
+  Deluxe: `${IMAGES}Deluxe.jpg`,
+  Suite: `${IMAGES}Suite.jpg`,
+  Penthouse: `${IMAGES}Penthouse1.jpg`,
 };
 
 export function getRoomFallbackImage(room = {}) {
@@ -14,7 +17,7 @@ export function getSafeRoomImage(room = {}) {
 
   if (!image) return getRoomFallbackImage(room);
   if (image.startsWith("/images/")) {
-    return `/Images/${image.slice("/images/".length)}`;
+    return `${IMAGES}${image.slice("/images/".length)}`;
   }
   if (
     image.startsWith("/") ||
@@ -25,7 +28,7 @@ export function getSafeRoomImage(room = {}) {
     return image;
   }
 
-  return `/Images/${image}`;
+  return `${IMAGES}${image}`;
 }
 
 export function normalizeRoomRecord(room = {}) {

@@ -5,6 +5,9 @@ import MarsaAlamBranchImg from "../assets/Images/MrasaAlam_Branch.avif";
 import SharmBranchImg from "../assets/Images/Sharm_Branch.png";
 import { getSafeRoomImage } from "./roomMedia";
 
+// Public-folder images, prefixed with the deploy base (e.g. /blue-waves-hotels/ on GitHub Pages).
+const IMAGES = `${import.meta.env.BASE_URL}Images/`;
+
 const branchImageByKey = {
   "alexa branch": AlexBranchImg,
   "alexandria branch": AlexBranchImg,
@@ -60,17 +63,18 @@ function normalizeImagePath(image = "") {
   const fileName = lowerImage.split("/").pop();
 
   if (!trimmedImage) return "";
+  if (import.meta.env.BASE_URL !== "/" && trimmedImage.startsWith(import.meta.env.BASE_URL)) return trimmedImage;
   if (fileName && branchImageByFileName[fileName]) {
     return branchImageByFileName[fileName];
   }
   if (trimmedImage.startsWith("/images/")) {
-    return `/Images/${trimmedImage.slice("/images/".length)}`;
+    return `${IMAGES}${trimmedImage.slice("/images/".length)}`;
   }
   if (lowerImage.includes("/images/")) {
-    return `/Images/${trimmedImage.slice(lowerImage.lastIndexOf("/images/") + "/images/".length)}`;
+    return `${IMAGES}${trimmedImage.slice(lowerImage.lastIndexOf("/images/") + "/images/".length)}`;
   }
   if (lowerImage.startsWith("images/")) {
-    return `/Images/${trimmedImage.slice("images/".length)}`;
+    return `${IMAGES}${trimmedImage.slice("images/".length)}`;
   }
   if (
     trimmedImage.startsWith("/") ||
@@ -82,10 +86,10 @@ function normalizeImagePath(image = "") {
   }
 
   if (lowerImage.includes("assets/images/") && fileName) {
-    return `/Images/${fileName}`;
+    return `${IMAGES}${fileName}`;
   }
 
-  return `/Images/${trimmedImage}`;
+  return `${IMAGES}${trimmedImage}`;
 }
 
 export function slugifyBranchName(name = "") {
